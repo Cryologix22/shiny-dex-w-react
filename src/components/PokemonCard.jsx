@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
+import PlayCry from "./PlayCry";
 
 const PokemonCard = ({ pokemon }) => {
+  const audioRef = useRef(null);
+
   return (
   <div className='pokemon__card'>
     {pokemon.id}
@@ -18,6 +21,11 @@ const PokemonCard = ({ pokemon }) => {
   </span>
   );
 })}
+    <audio
+  ref={audioRef}
+  src={pokemon.cries.latest}
+/>
+<PlayCry audioRef={audioRef} />
     </div>
 )
 };
