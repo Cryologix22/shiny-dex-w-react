@@ -31,16 +31,23 @@ const Home = () => {
   }, []);
 
   return (
+    <div className="coming-soon">
+      <h1>
+        <span className="shiny">Shiny</span>{" "}
+        <span className="dex">Dex</span>
+      </h1>
+      <p>Coming soon...</p>
     <div className='pokemon__grid'>
   {kantoPokemon.map((pokemon) => {
     return (
       <PokemonCard
-        key={pokemon.id}
-        pokemon={pokemon}
+      key={pokemon.id}
+      pokemon={pokemon}
       />
     );
   })}
 </div>
+  </div>
   );
 };
 

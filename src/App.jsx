@@ -1,22 +1,20 @@
 import "./App.css";
 import Home from './pages/Home'
+import Pokedex from './pages/Pokedex'
+import About from './pages/About'
 import Nav from "./components/Nav";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <>
     <Nav />
-    <div className="coming-soon">
-      <h1>
-        <span className="shiny">Shiny</span>{" "}
-        <span className="dex">Dex</span>
-      </h1>
-
-      <p>Coming soon...</p>
-    <Home />
-    </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/pokedex" element={<Pokedex />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
+    </>
   );
 }
 
