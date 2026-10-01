@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
+import './Home.css'
 
 const Home = () => {
   const [kantoPokemon, setKantoPokemon] = useState([]);
@@ -30,7 +31,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className='pokemon__grid'>
   {kantoPokemon.map((pokemon) => {
     return (
       <PokemonCard

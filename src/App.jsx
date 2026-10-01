@@ -1,9 +1,12 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home'
+import Nav from "./components/Nav";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
+    <Router>
+    <Nav />
     <div className="coming-soon">
       <h1>
         <span className="shiny">Shiny</span>{" "}
@@ -11,8 +14,9 @@ function App() {
       </h1>
 
       <p>Coming soon...</p>
-      <Home />
+    <Home />
     </div>
+    </Router>
   );
 }
 
