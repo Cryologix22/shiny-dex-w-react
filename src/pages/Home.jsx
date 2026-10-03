@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
 import './Home.css'
+import { fetchPokemonRange } from "../utils/fetchPokemon";
 
 const Home = () => {
   const [kantoPokemon, setKantoPokemon] = useState([]);
 
-  useEffect(() => {
-    async function fetchPokemon(id) {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+ useEffect(() => {
+  async function loadKantoPokemon() {
+    const allPokemon = await fetchPokemonRange(1, 151);
 
-      const data = await res.json();
+    setKantoPokemon(allPokemon);
+  }
 
-      return data;
-    }
-
-    async function fetchKantoPokemon() {
-      const pokemonPromises = [];
-
-      for (let i = 1; i <= 151; i++) {
-        pokemonPromises.push(fetchPokemon(i));
-      }
-
-      const allPokemon = await Promise.all(pokemonPromises);
-
-      console.log(allPokemon);
-      setKantoPokemon(allPokemon);
-    }
-
-    fetchKantoPokemon();
-  }, []);
+  loadKantoPokemon();
+}, []);
 
   return (
     <div className="coming-soon">
