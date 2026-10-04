@@ -1,6 +1,6 @@
 import "./RegionSelector.css";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import regions from "../data/regions";
 
 const RegionSelector = ({ setSpinDirection }) => {
@@ -37,13 +37,13 @@ const RegionSelector = ({ setSpinDirection }) => {
       <div className="region__track" ref={trackRef}>
         {regions.map((region) => {
           return (
-            <Link
+            <NavLink
               to={`/pokedex/${region.slug}`}
               key={region.slug}
               className="region__item"
             >
               {region.name}
-            </Link>
+            </NavLink>
           );
         })}
       </div>

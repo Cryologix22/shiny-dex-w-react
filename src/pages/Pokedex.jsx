@@ -3,6 +3,7 @@ import regions from "../data/regions";
 import { useEffect, useState } from "react";
 import { fetchPokemonRange } from "../utils/fetchPokemon";
 import PokemonCard from "../components/PokemonCard";
+import Grid from "../components/Grid";
 
 const Pokedex = () => {
 const [pokemon, setPokemon] = useState([]);
@@ -56,16 +57,16 @@ const selectedRegion = regions.find(
 <h4>Tagline: {selectedRegion?.tagline}</h4>
 <p>Description: {selectedRegion?.description}</p>
     </section>
-    <div className="pokemon__grid">
+    <Grid>
       {pokemon.map((pokemon) => {
-  return (
-    <PokemonCard
-      key={pokemon.id}
-      pokemon={pokemon}
-    />
-  );
-})}
-    </div>
+        return (
+          <PokemonCard
+          key={pokemon.id}
+          pokemon={pokemon}
+          />
+        );
+      })}
+      </Grid>
     </>
   );
 };

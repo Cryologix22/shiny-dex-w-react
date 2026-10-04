@@ -1,39 +1,34 @@
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
-import './Home.css'
+import "./Home.css";
 import { fetchPokemonRange } from "../utils/fetchPokemon";
+import Grid from "../components/Grid";
 
 const Home = () => {
   const [kantoPokemon, setKantoPokemon] = useState([]);
 
- useEffect(() => {
-  async function loadKantoPokemon() {
-    const allPokemon = await fetchPokemonRange(1, 151);
+  useEffect(() => {
+    async function loadKantoPokemon() {
+      const allPokemon = await fetchPokemonRange(1, 151);
 
-    setKantoPokemon(allPokemon);
-  }
+      setKantoPokemon(allPokemon);
+    }
 
-  loadKantoPokemon();
-}, []);
+    loadKantoPokemon();
+  }, []);
 
   return (
     <div className="coming-soon">
       <h1>
-        <span className="shiny">Shiny</span>{" "}
-        <span className="dex">Dex</span>
+        <span className="shiny">Shiny</span> <span className="dex">Dex</span>
       </h1>
       <p>Coming soon...</p>
-    <div className='pokemon__grid'>
-  {kantoPokemon.map((pokemon) => {
-    return (
-      <PokemonCard
-      key={pokemon.id}
-      pokemon={pokemon}
-      />
-    );
-  })}
-</div>
-  </div>
+      <Grid>
+        {kantoPokemon.map((pokemon) => {
+          return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
+        })}
+      </Grid>
+    </div>
   );
 };
 

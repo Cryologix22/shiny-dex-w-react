@@ -1,9 +1,12 @@
 import React from 'react'
+import './Grid.css'
 
-const Grid = () => {
+const Grid = ({ children }) => {
   return (
-    <div>Grid</div>
-  )
-}
+    <div className="pokemon__grid">
+      {children}
+    </div>
+  );
+};
 
-export default Grid
+export default Grid;
