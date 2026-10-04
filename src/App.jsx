@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Pokedex from "./pages/Pokedex";
 import About from "./pages/About";
 import Nav from "./components/Nav";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
