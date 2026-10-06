@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { fetchPokemonRange } from "../utils/fetchPokemon";
 import PokemonCard from "../components/PokemonCard";
 import Grid from "../components/Grid";
+import PokemonSkeleton from "../components/PokemonSkeleton";
 
 const Pokedex = () => {
 const [pokemon, setPokemon] = useState([]);
-
-console.log(pokemon);
+const [loading, setLoading] = useState(false);
 const { region } = useParams();
 const selectedRegion = regions.find(
  (item) => item.slug === region
@@ -18,12 +18,19 @@ const selectedRegion = regions.find(
   if (!selectedRegion) return;
 
   async function loadRegionPokemon() {
+    setLoading(true);
+
     const allPokemon = await fetchPokemonRange(
       selectedRegion.startId,
       selectedRegion.endId
     );
 
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setPokemon(allPokemon);
+    console.log("Loading:", loading);
+
+     setLoading(false);
   }
 
   loadRegionPokemon();
@@ -58,15 +65,19 @@ const selectedRegion = regions.find(
 <p>Description: {selectedRegion?.description}</p>
     </section>
     <Grid>
-      {pokemon.map((pokemon) => {
-        return (
-          <PokemonCard
+  {loading
+    ? Array(12)
+        .fill(null)
+        .map((_, index) => (
+          <PokemonSkeleton key={index} />
+        ))
+    : pokemon.map((pokemon) => (
+        <PokemonCard
           key={pokemon.id}
           pokemon={pokemon}
-          />
-        );
-      })}
-      </Grid>
+        />
+      ))}
+</Grid>
     </>
   );
 };
