@@ -28,8 +28,6 @@ const selectedRegion = regions.find(
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setPokemon(allPokemon);
-    console.log("Loading:", loading);
-
      setLoading(false);
   }
 

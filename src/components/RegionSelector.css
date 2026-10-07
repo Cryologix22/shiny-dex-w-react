@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   max-width: 700px;
 }
 
@@ -10,7 +9,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  max-width: 200px;
+  max-width: 300px;
   overflow-x: auto;
   scroll-behavior: smooth;
 
@@ -24,66 +23,84 @@
 }
 
 .region__item {
-  flex-shrink: 0;
   position: relative;
-  padding-bottom: 12px;
-  bottom: 0;
+  padding: 7px 10px 11px;
+  color: #888;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.region__item:hover {
+  color: gold;
+  background: rgba(255, 215, 0, 0.05);
+  transform: translateY(-1px);
 }
 
 .region__item.active {
   color: gold;
+  background: rgba(255, 215, 0, 0.07);
 }
 
 .region__item.active::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 7px;
-  height: 7px;
+  bottom: 2px;
+  width: 5px;
+  height: 5px;
   background: #e3350d;
-  border: 2px solid #f5f5f5;
   border-radius: 50%;
+  transform: translateX(-50%);
   box-shadow:
     0 0 4px #e3350d,
-    0 0 8px rgba(227, 53, 13, 0.7);
-  animation: pokedex-pulse 1.5s ease-in-out infinite;
+    0 0 8px rgba(227, 53, 13, 0.6);
+  animation: region-led-pulse 2s ease-in-out infinite;
 }
 
-@keyframes pokedex-pulse {
+@keyframes region-led-pulse {
   0%,
   100% {
-    box-shadow:
-      0 0 4px #e3350d,
-      0 0 8px rgba(227, 53, 13, 0.5);
+    opacity: 0.5;
   }
 
   50% {
-    box-shadow:
-      0 0 6px #e3350d,
-      0 0 14px rgba(227, 53, 13, 0.9);
+    opacity: 1;
   }
 }
 
 .region__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
-
-  border: none;
-  background: transparent;
-  color: gold;
-
-  font-size: 24px;
+  color: #777;
   cursor: pointer;
-
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
   transition:
-    transform 200ms ease,
-    color 200ms ease;
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
 }
 
 .region__arrow:hover {
-  color: #e3350d;
-  transform: scale(1.2);
+  color: gold;
+  background: rgba(255, 215, 0, 0.07);
+  border-color: rgba(255, 215, 0, 0.35);
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.08);
 }
 
 @media (max-width: 768px) {
