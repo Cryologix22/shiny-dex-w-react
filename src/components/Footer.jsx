@@ -38,7 +38,7 @@ const Footer = () => {
               GitHub
             </a>
             <a
-              href="https://cryologix22.github.io/E-Portfolio/"
+              href="https://cryologix22.github.io/exclusive-e-portfolio/"
               target="_blank"
               rel="noreferrer"
             >
@@ -50,7 +50,7 @@ const Footer = () => {
         <div className="footer__bottom">
           <p>
             Fan-made project powered by PokéAPI. Pokémon © Nintendo / Game Freak
-            / Creatures.
+            / Creatures / Bulbapedia.
           </p>
           <p>ShinyDex 2.0 • Keep Evolving ✦</p>
         </div>
