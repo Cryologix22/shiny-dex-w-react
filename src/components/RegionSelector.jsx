@@ -1,5 +1,5 @@
 import "./RegionSelector.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import regions from "../data/regions";
 
@@ -9,11 +9,12 @@ const RegionSelector = ({ setSpinDirection }) => {
   const scrollInterval = useRef(null);
 
   const startScrolling = (direction) => {
+    clearInterval(scrollInterval.current);
     setSpinDirection(direction);
     const amount = direction === "left" ? -30 : 30;
 
     scrollInterval.current = setInterval(() => {
-      trackRef.current.scrollBy({
+      trackRef.current?.scrollBy({
         left: amount,
       });
     }, 50);
@@ -24,6 +25,13 @@ const RegionSelector = ({ setSpinDirection }) => {
     setSpinDirection(null);
   };
 
+  useEffect(() => {
+    return () => {
+      clearInterval(scrollInterval.current);
+      setSpinDirection(null);
+    };
+  }, [setSpinDirection]);
+
   return (
     <div className="region__selector">
       <button
@@ -31,6 +39,8 @@ const RegionSelector = ({ setSpinDirection }) => {
         onPointerDown={() => startScrolling("left")}
         onPointerUp={stopScrolling}
         onPointerLeave={stopScrolling}
+        onPointerCancel={stopScrolling}
+        onLostPointerCapture={stopScrolling}
       >
         ←
       </button>
