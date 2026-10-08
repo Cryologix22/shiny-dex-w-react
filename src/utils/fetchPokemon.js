@@ -3,6 +3,10 @@ export async function fetchPokemon(id) {
     `https://pokeapi.co/api/v2/pokemon/${id}`
   );
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch Pokémon #${id}: HTTP ${res.status}`);
+  }
+
   const data = await res.json();
   return data;
 }

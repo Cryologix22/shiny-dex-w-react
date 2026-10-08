@@ -62,17 +62,17 @@ const FeaturedPokemon = ({ pokemon }) => {
           <div className="featured__stats">
             <div>
               <span>Height</span>
-              <strong>{featuredPokemon.height}</strong>
+              <strong>{(featuredPokemon.height * 3.937007874).toFixed(1)} in</strong>
             </div>
             <div>
               <span>Weight</span>
-              <strong>{featuredPokemon.weight}</strong>
+              <strong>{(featuredPokemon.weight * 0.220462262).toFixed(1)} lbs</strong>
             </div>
           </div>
           <div className="featured__actions">
-            <audio ref={audioRef} src={featuredPokemon.cries.latest} />
+            <audio ref={audioRef} src={featuredPokemon.cries?.latest || featuredPokemon.cries?.legacy || undefined} />
 
-            <PlayCry audioRef={audioRef} />
+            <PlayCry audioRef={audioRef} hasCry={Boolean(featuredPokemon.cries?.latest || featuredPokemon.cries?.legacy)} />
             <button className="featured__discover" onClick={choosePokemon}>
               ✦ Discover Another
             </button>

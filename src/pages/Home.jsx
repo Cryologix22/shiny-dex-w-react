@@ -12,23 +12,35 @@ import "./Home.css";
 const Home = () => {
   const [kantoPokemon, setKantoPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [retryCount, setRetryCount] = useState(0);
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("all");
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadKantoPokemon() {
       setLoading(true);
+      setError("");
 
       try {
         const allPokemon = await fetchPokemonRange(1, 151);
-        setKantoPokemon(allPokemon);
+        if (!cancelled) setKantoPokemon(allPokemon);
+      } catch (err) {
+        console.error("Failed to load Kanto Pokémon:", err);
+        if (!cancelled) {
+          setKantoPokemon([]);
+          setError("We couldn't load the Kanto Pokémon. Check your connection and try again.");
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     loadKantoPokemon();
-  }, []);
+    return () => { cancelled = true; };
+  }, [retryCount]);
 
   const filteredPokemon = kantoPokemon.filter((pokemon) => {
     const searchValue = search.toLowerCase().trim();
@@ -69,7 +81,16 @@ const Home = () => {
                     <PokemonCard key={pokemon.id} pokemon={pokemon} />
                   ))}
             </Grid>
-            {!loading && filteredPokemon.length === 0 && (
+            {!loading && error && (
+              <div className="home__empty" role="alert">
+                <h3>Connection Interrupted</h3>
+                <p>{error}</p>
+                <button type="button" onClick={() => setRetryCount((count) => count + 1)}>
+                  Try Again
+                </button>
+              </div>
+            )}
+            {!loading && !error && filteredPokemon.length === 0 && (
               <div className="home__empty">
                 <h3>No Pokémon Found</h3>
                 <p>
