@@ -8,6 +8,7 @@ import PokemonSkeleton from "../components/PokemonSkeleton";
 import Grid from "../components/Grid";
 import { fetchPokemonRange } from "../utils/fetchPokemon";
 import "./Home.css";
+import PokemonModal from "../components/PokemonModal";
 
 const Home = () => {
   const [kantoPokemon, setKantoPokemon] = useState([]);
@@ -16,6 +17,7 @@ const Home = () => {
   const [retryCount, setRetryCount] = useState(0);
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("all");
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -31,7 +33,9 @@ const Home = () => {
         console.error("Failed to load Kanto Pokémon:", err);
         if (!cancelled) {
           setKantoPokemon([]);
-          setError("We couldn't load the Kanto Pokémon. Check your connection and try again.");
+          setError(
+            "We couldn't load the Kanto Pokémon. Check your connection and try again.",
+          );
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -39,7 +43,9 @@ const Home = () => {
     }
 
     loadKantoPokemon();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [retryCount]);
 
   const filteredPokemon = kantoPokemon.filter((pokemon) => {
@@ -78,14 +84,21 @@ const Home = () => {
                     .fill(null)
                     .map((_, index) => <PokemonSkeleton key={index} />)
                 : filteredPokemon.map((pokemon) => (
-                    <PokemonCard key={pokemon.id} pokemon={pokemon} />
+                    <PokemonCard
+                      key={pokemon.id}
+                      pokemon={pokemon}
+                      onSelect={setSelectedPokemon}
+                    />
                   ))}
             </Grid>
             {!loading && error && (
               <div className="home__empty" role="alert">
                 <h3>Connection Interrupted</h3>
                 <p>{error}</p>
-                <button type="button" onClick={() => setRetryCount((count) => count + 1)}>
+                <button
+                  type="button"
+                  onClick={() => setRetryCount((count) => count + 1)}
+                >
                   Try Again
                 </button>
               </div>
@@ -114,6 +127,12 @@ const Home = () => {
           Explore All Regions →
         </Link>
       </section>
+      {selectedPokemon && (
+        <PokemonModal
+          pokemon={selectedPokemon}
+          onClose={() => setSelectedPokemon(null)}
+        />
+      )}
     </main>
   );
 };
