@@ -31,7 +31,7 @@ const Home = () => {
         console.error("Failed to load Kanto Pokémon:", err);
         if (!cancelled) {
           setKantoPokemon([]);
-          setError("We couldn\'t load the Kanto Pokémon. Check your connection and try again.");
+          setError("We couldn't load the Kanto Pokémon. Check your connection and try again.");
         }
       } finally {
         if (!cancelled) setLoading(false);
