@@ -45,9 +45,9 @@ const PokemonCard = ({ pokemon }) => {
       {pokemon.name}
     </span>
     <span className='pokemon__measurements'>
-      Height: {pokemon.height} in
+      Height: {(pokemon.height * 3.937007874).toFixed(1)} in
       <br />
-      Weight: {pokemon.weight} lbs
+      Weight: {(pokemon.weight * 0.220462262).toFixed(1)} lbs
     </span>
     <img
   src={pokemon.sprites.front_shiny}
@@ -65,9 +65,9 @@ const PokemonCard = ({ pokemon }) => {
 })}
     <audio
   ref={audioRef}
-  src={pokemon.cries.latest}
+  src={pokemon.cries?.latest || pokemon.cries?.legacy || undefined}
 />
-<PlayCry audioRef={audioRef} />
+<PlayCry audioRef={audioRef} hasCry={Boolean(pokemon.cries?.latest || pokemon.cries?.legacy)} />
     </div>
 )
 };
