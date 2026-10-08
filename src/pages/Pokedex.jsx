@@ -7,13 +7,12 @@ import PokemonSkeleton from "../components/PokemonSkeleton";
 import RegionCard from "../components/RegionCard";
 import Grid from "../components/Grid";
 import "./Pokedex.css";
+import PokemonModal from "../components/PokemonModal";
 
 const Pokedex = () => {
   const { region } = useParams();
-
-  const selectedRegion = regions.find(
-    (item) => item.slug === region
-  );
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const selectedRegion = regions.find((item) => item.slug === region);
 
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,12 +31,10 @@ const Pokedex = () => {
       try {
         const allPokemon = await fetchPokemonRange(
           selectedRegion.startId,
-          selectedRegion.endId
+          selectedRegion.endId,
         );
 
-        await new Promise((resolve) =>
-          setTimeout(resolve, 2000)
-        );
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
         if (!cancelled) {
           setPokemon(allPokemon);
@@ -46,9 +43,7 @@ const Pokedex = () => {
         console.error("Failed to load region:", err);
 
         if (!cancelled) {
-          setError(
-            "We couldn't load this region. Please try again."
-          );
+          setError("We couldn't load this region. Please try again.");
         }
       } finally {
         if (!cancelled) {
@@ -77,9 +72,8 @@ const Pokedex = () => {
             EXPLORE THE <span>POKÉDEX</span>
           </h1>
           <p>
-            Nine regions. Nine generations. One evolving
-            adventure. Choose your destination and discover
-            the Pokémon that shaped each generation.
+            Nine regions. Nine generations. One evolving adventure. Choose your
+            destination and discover the Pokémon that shaped each generation.
           </p>
           <div className="pokedex__hero-stats">
             <span>9 REGIONS</span>
@@ -97,10 +91,7 @@ const Pokedex = () => {
           </div>
           <div className="pokedex__region-grid">
             {regions.map((item) => (
-              <RegionCard
-                key={item.slug}
-                region={item}
-              />
+              <RegionCard key={item.slug} region={item} />
             ))}
           </div>
         </section>
@@ -114,9 +105,7 @@ const Pokedex = () => {
     return (
       <main className="pokedex pokedex__not-found">
         <h1>Region Not Found</h1>
-        <p>
-          Even Professor Oak hasn't discovered that region.
-        </p>
+        <p>Even Professor Oak hasn't discovered that region.</p>
         <Link to="/pokedex" className="pokedex__button">
           Return to Pokédex
         </Link>
@@ -126,18 +115,14 @@ const Pokedex = () => {
 
   // SELECTED REGION
 
-  const pokemonCount =
-    selectedRegion.endId - selectedRegion.startId + 1;
+  const pokemonCount = selectedRegion.endId - selectedRegion.startId + 1;
 
   return (
     <main className="pokedex">
       <section
         className={`pokedex__region-hero pokedex__region-hero--${selectedRegion.slug}`}
       >
-        <Link
-          to="/pokedex"
-          className="pokedex__back"
-        >
+        <Link to="/pokedex" className="pokedex__back">
           ← ALL REGIONS
         </Link>
         <div className="pokedex__region-heading">
@@ -155,16 +140,12 @@ const Pokedex = () => {
           </div>
 
           <div>
-            <strong>
-              #{String(selectedRegion.startId).padStart(4, "0")}
-            </strong>
+            <strong>#{String(selectedRegion.startId).padStart(4, "0")}</strong>
             <span>FIRST ENTRY</span>
           </div>
 
           <div>
-            <strong>
-              #{String(selectedRegion.endId).padStart(4, "0")}
-            </strong>
+            <strong>#{String(selectedRegion.endId).padStart(4, "0")}</strong>
             <span>LAST ENTRY</span>
           </div>
         </div>
@@ -181,8 +162,8 @@ const Pokedex = () => {
             {loading
               ? "Discovering Pokémon..."
               : error
-              ? "Connection interrupted"
-              : `${pokemon.length} Pokémon discovered`}
+                ? "Connection interrupted"
+                : `${pokemon.length} Pokémon discovered`}
           </p>
         </div>
 
@@ -206,11 +187,18 @@ const Pokedex = () => {
                   <PokemonCard
                     key={item.id}
                     pokemon={item}
+                    onSelect={setSelectedPokemon}
                   />
                 ))}
           </Grid>
         )}
       </section>
+      {selectedPokemon && (
+        <PokemonModal
+          pokemon={selectedPokemon}
+          onClose={() => setSelectedPokemon(null)}
+        />
+      )}
     </main>
   );
 };

@@ -122,6 +122,30 @@
   gap: 8px;
 }
 
+.featured__description {
+  margin: 16px 0;
+  padding: 16px 18px;
+  border-left: 3px solid gold;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.featured__description-label {
+  display: block;
+  margin-bottom: 8px;
+  color: gold;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.featured__description p {
+  margin: 0;
+  color: #e5e5e5;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
 .featured__stats {
   display: flex;
   gap: 50px;
