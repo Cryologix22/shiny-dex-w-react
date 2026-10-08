@@ -50,11 +50,11 @@ const FeaturedPokemon = ({ pokemon }) => {
           </span>
           <h3>{featuredPokemon.name}</h3>
           <div className="featured__types">
-            <span className={`pokemon__type pokemon__type--${primaryType}`}>
+            <span className={`type type--${primaryType}`}>
               {primaryType}
             </span>
             {secondaryType && (
-              <span className={`pokemon__type pokemon__type--${secondaryType}`}>
+              <span className={`type type--${secondaryType}`}>
                 {secondaryType}
               </span>
             )}

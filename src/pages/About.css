@@ -191,6 +191,7 @@
   color: gold;
   font-size: 20px;
   font-weight: 800;
+  animation: golden-pulse 3s ease-in-out infinite;
 }
 
 .tech__item small {
@@ -248,6 +249,7 @@
 .feature h3 {
   margin: 12px 0;
   color: gold;
+  animation: golden-pulse 3s ease-in-out infinite;
 }
 
 .feature p {
@@ -272,11 +274,41 @@
 }
 
 .about__developer-purpose {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
   margin: 25px 0 40px;
   color: gold;
   font-size: 24px;
   font-weight: 800;
   font-style: italic;
+}
+
+.about__developer-purpose::before {
+  content: "";
+  position: absolute;
+  inset: -12px -20px;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 215, 0, 0.35),
+    transparent 70%
+  );
+  filter: blur(12px);
+  z-index: -1;
+  animation: aura-pulse 4s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1.2);
+  }
 }
 
 .about__actions {
@@ -377,5 +409,21 @@
   .about__button {
     width: 100%;
     box-sizing: border-box;
+  }
+}
+
+@keyframes golden-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.2),
+      0 0 10px rgba(255, 215, 0, 0.1);
+  }
+
+  50% {
+    text-shadow:
+      0 0 12px rgba(255, 215, 0, 0.8),
+      0 0 25px rgba(255, 215, 0, 0.5),
+      0 0 40px rgba(255, 215, 0, 0.25);
   }
 }
