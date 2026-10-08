@@ -4,6 +4,7 @@ import Pokedex from "./pages/Pokedex";
 import About from "./pages/About";
 import Nav from "./components/Nav";
 import { Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/pokedex/:region" element={<Pokedex />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <Footer />
     </>
   );
 }
